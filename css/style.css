@@ -1,0 +1,167 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #E5E5E5;
+    font-family: 'Roboto', sans-serif;   
+}
+
+header{
+    height:69px;
+    width:100%;
+  
+    background-color:#EC362D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    
+}
+header h1{
+    color: #fff;
+    font-size: 37px;
+    font-weight: 700;
+}
+
+h2{
+    font-size: 23px;
+    margin: auto;
+    margin-top: 71px;
+    font-weight: 700;
+    text-align: center;
+}
+main{
+    align-items: center;
+    justify-content: center;
+    display:flex;
+    flex-direction: column;
+}
+.input{
+    width: 600px;
+    height: 300px;
+    background-color:#fff;
+    margin-top: 27px;
+    display:grid;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.input input{
+    width:564px ;
+    height:46px ;
+    border: 1px solid #D1D1D1;
+    border-radius: 5px;
+    outline: 0 ;
+    font-size: 19px;
+    font-style: italic;
+}
+
+
+
+.input div{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+input::placeholder{
+    color: #BABABA;
+    position:absolute;
+    margin-top: 13px;
+    margin-left:23px;
+}
+button{
+    Width:368px;
+    Height:54px;
+    background-color: #EC362D;
+    border: none;
+    border-radius: 15px;
+    color: #fff;
+    font-size: 21px;
+    margin: auto;
+    margin-top: 85px;
+    font-weight: 400;
+    cursor: pointer;
+}
+button:hover{
+     filter:brightness(50%);
+}
+
+/* tela 3 */
+.inputFechada{
+    margin-top: 24px;
+    width: 600px;
+    height: 74px;
+    background-color: #fff;
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    
+}
+.inputFechada img{
+    margin: 24px;
+    cursor: pointer;
+}
+.inputFechada img:hover{
+    filter: invert(50%);
+}
+
+ .inputFechada h3{
+    margin-left: 17px;
+   
+}
+
+/* tela 3 */
+h3{
+    font-size: 20px;
+    font-weight: 700;
+    text-align: left;
+}
+
+.respostasIncorretas div{
+margin-bottom: 18px;
+}
+
+/* tela 4  mudar 
+    margin-top: 45px; do button na tela 4*/
+.imagemFinal{
+    width: 500px;
+    height: 266px;
+    margin-top: 46px;
+}
+p{
+    font-size: 21px;
+    margin-top: 9px;
+    color:#818181;
+}
+
+
+.tela2 .input{
+    padding-top: 28px ;
+    width: 600px;
+    height: fit-content;
+    background-color:#fff;
+    margin-top: 27px;
+    display:grid;
+    justify-content: center;
+    align-items: center;
+} 
+
+.tela2 input{
+     margin-top: 12px;
+    width:564px ;
+    height:46px ;
+    border: 1px solid #D1D1D1;
+    border-radius: 5px;
+    outline: 0 ;
+    font-size: 19px;
+    font-style: italic;
+}
