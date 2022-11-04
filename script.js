@@ -1,141 +1,115 @@
-function renderizarPagina() {
+// CÓDIGO DO MARCOS PARA A PAGINA DE CRIAÇÃO DE QUIZZ
+let tituloNovoQuiz;
+let imgNovoQuiz;
+let qtdPerguntasNovoQuiz;
+let qtdNiveisNovoQuiz;
+
+function renderizarPagina1CriacaoQuizz() {
   let conteudo = document.querySelector('main');
   conteudo.innerHTML = `  <h2>Comece pelo começo</h2>
-    <div class="input">
-        <input type="text" placeholder="Título do seu quizz"  name="" id="" minlength="20" maxlength="65">
-        <input type="text" placeholder="URL da imagem do seu quizz"name="" id="">
-        <input type="number" placeholder="Quantidade de perguntas do quizz"name="" id="" min>
-        <input type="text" placeholder="Quantidade de níveis do quizz"name="" id="">
-    </div>
-    <button onclick="irParaPagina2()">Prosseguir pra criar perguntas</button>`
+    <form >
+        <div class="criandoQuiz">
+            <input type="text" placeholder="Título do seu quizz"  name="" id="tituloNovoQuiz" minlength="20" maxlength="65" value="" required>
+            <input type="url" placeholder="URL da imagem do seu quizz"name="" id="imgNovoQuiz">
+            <input type="number" placeholder="Quantidade de perguntas do quizz"name="" id="qtdPerguntasNovoQuiz" min="3">
+            <input type="text" placeholder="Quantidade de níveis do quizz"name="" id="qtdNiveisNovoQuiz" min="2">
+        </div>
+        <button onclick="renderizarPagina2CriacaoQuizz()">Prosseguir pra criar perguntas</button>    
+    </form>`
+    }
+
+function renderizarPagina2CriacaoQuizz() {
+    tituloNovoQuiz = document.querySelector('#tituloNovoQuiz').value;
+    imgNovoQuiz = document.querySelector('#imgNovoQuiz').value;
+    qtdPerguntasNovoQuiz = document.querySelector('#qtdPerguntasNovoQuiz').value;
+    qtdNiveisNovoQuiz = document.querySelector('#qtdNiveisNovoQuiz').value;
+
+    let conteudo = document.querySelector('main');
+    conteudo.innerHTML= `<h2>Crie suas perguntas</h2>`;
+    
+    for(let i = 0; i < qtdPerguntasNovoQuiz; i++ ){
+        conteudo.innerHTML +=
+        `<section class="criandoQuiz">
+            <div class="criandoQuizFechada">
+                <h3>Pergunta ${[i+1]}</h3>
+                <img onclick="expandirForm(this)" src="icones/vetorEditar.svg" alt="">
+            </div>
+
+            <div class="expandido escondido">
+            <h3>Pergunta ${[i+1]}</h3>
+                <div> 
+                    <input type="text" placeholder="Texto da pergunta" name="" id="" minlength="20">
+                    <input type="text" placeholder="Cor de fundo da pergunta"name="" id="">
+                </div>
+                <h3>Resposta correta</h3>
+                <div>
+                    <input type="text" placeholder="Resposta correta"name="" id="" minlength="1">
+                    <input type="text" placeholder="URL da imagem"name="" id="">
+                </div>
+                <h3>Respostas incorretas</h3>
+                <div class="respostasIncorretas">
+                    <div>
+                        <input type="text" placeholder="Resposta incorreta 1"name="" id="">
+                        <input type="text" placeholder="URL da imagem 1"name="" id="">
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Resposta incorreta 2"name="" id="">
+                        <input type="text" placeholder="URL da imagem 2"name="" id="">
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Resposta incorreta 3"name="" id="">
+                        <input type="text" placeholder="URL da imagem 3"name="" id="">
+                    </div>
+            </div>
+            </div>
+        </section>`
+    }
+    conteudo.innerHTML+=`<button onclick="renderizarPagina3CriacaoQuizz()" >Prosseguir pra criar níveis</button>`
 }
 
-function irParaPagina2() {
-  let conteudo = document.querySelector('main');
-  conteudo.innerHTML = ` <main class="tela2">
-    <h2>Crie suas perguntas</h2>
-    <section class="input">
-        
-        <h3>Pergunta 1</h3>
-        <div> 
-            <input type="text" placeholder="Texto da pergunta" name="" id="" minlength="20">
-            <input type="text" placeholder="Cor de fundo da pergunta"name="" id="">
-        </div>
-        <h3>Resposta correta</h3>
-        <div>
-            <input type="text" placeholder="Resposta correta"name="" id="" minlength="1">
-            <input type="text" placeholder="URL da imagem"name="" id="">
-        </div>
-        <h3>Respostas incorretas</h3>
-       <div class="respostasIncorretas">
-            <div>
-                <input type="text" placeholder="Resposta incorreta 1"name="" id="">
-                <input type="text" placeholder="URL da imagem 1"name="" id="">
-            </div>
-            <div>
-                <input type="text" placeholder="Resposta incorreta 2"name="" id="">
-                <input type="text" placeholder="URL da imagem 2"name="" id="">
-            </div>
-            <div>
-                <input type="text" placeholder="Resposta incorreta 3"name="" id="">
-                <input type="text" placeholder="URL da imagem 3"name="" id="">
-            </div>
-       </div>
-    </section>
-    <section class="inputFechada inputFechadaDois">
-        <h3>Pergunta 2</h3>
-        <img src="icones/Vector (3).svg" alt="">
-    </section>
-    <section class="input inputDois">
-        <h3>Pergunta 2</h3>
-        <div> 
-            <input type="text" placeholder="Texto da pergunta" name="" id="">
-            <input type="text" placeholder="Cor de fundo da pergunta"name="" id="">
-        </div>
-        <h3>Resposta correta</h3>
-        <div>
-            <input type="text" placeholder="Resposta correta"name="" id="">
-            <input type="text" placeholder="URL da imagem"name="" id="">
-        </div>
-        
-       <h3>Respostas incorretas</h3>
-       <div class="respostasIncorretas">
-            <div>
-                <input type="text" placeholder="Resposta incorreta 1"name="" id="">
-                <input type="text" placeholder="URL da imagem 1"name="" id="">
-            </div>
-            <div>
-                <input type="text" placeholder="Resposta incorreta 2"name="" id="">
-                <input type="text" placeholder="URL da imagem 2"name="" id="">
-            </div>
-            <div>
-                <input type="text" placeholder="Resposta incorreta 3"name="" id="">
-                <input type="text" placeholder="URL da imagem 3"name="" id="">
-            </div>
-       </div>
-    </section>
-    <section class="inputFechada inputFechadaTres">
-        <h3>Pergunta 3</h3>
-        <img src="icones/Vector (3).svg" alt="">
-    </section>
-    <section class="input inputTres">
-        <h3>Pergunta 3</h3>
-        <div> 
-            <input type="text" placeholder="Texto da pergunta" name="" id="">
-            <input type="text" placeholder="Cor de fundo da pergunta"name="" id="">
-        </div>
-        <h3>Resposta correta</h3>
-        <div>
-            <input type="text" placeholder="Resposta correta"name="" id="">
-            <input type="text" placeholder="URL da imagem"name="" id="">
-        </div>
-        <h3>Respostas incorretas</h3>
-       <div class="respostasIncorretas">
-            <div>
-                <input type="text" placeholder="Resposta incorreta 1"name="" id="">
-                <input type="text" placeholder="URL da imagem 1"name="" id="">
-            </div>
-            <div>
-                <input type="text" placeholder="Resposta incorreta 2"name="" id="">
-                <input type="text" placeholder="URL da imagem 2"name="" id="">
-            </div>
-            <div>
-                <input type="text" placeholder="Resposta incorreta 3"name="" id="">
-                <input type="text" placeholder="URL da imagem 3"name="" id="">
-            </div>
-       </div>
-    </section>  
-    <button onclick="irParaPagina3()" >Prosseguir pra criar níveis</button>
-</main>`
+function expandirForm(select){
+    let pai = select.parentNode;
+    pai.classList.add('escondido');
+    let divExpandida = pai.parentNode.querySelector('.expandido');
+    divExpandida.classList.remove('escondido');
 }
 
-function irParaPagina3() {
-  let conteudo = document.querySelector('main');
-  conteudo.innerHTML = `   <h2>Agora, decida os níveis</h2>
-    <section class="input">
-        <h3>Nível 1</h3>
-        <input type="text" placeholder="Título do nível"  name="" id="">
-        <input type="text" placeholder="% de acerto mínima"name="" id="">
-        <input type="text" placeholder="URL da imagem do nível"name="" id="">
-        <input type="text" placeholder="Descrição do nível"name="" id="">
-    </section>
-    <section class="inputFechada">
-        <h3>Nível 1</h3>
-        <img src="icones/Vector (3).svg" alt="">
-    </section>
-        
-   
-    <button onclick="irParaPagina4()">Prosseguir pra criar perguntas</button>`
+function renderizarPagina3CriacaoQuizz() {
+    let conteudo = document.querySelector('main');
+    conteudo.innerHTML= '';
+    conteudo.innerHTML=`<h2>Agora, decida os níveis</h2>`
+    for(let i =0; i < qtdNiveisNovoQuiz;i++ ){
+          conteudo.innerHTML+=`
+      <section class="criandoQuiz">
+          <div class="criandoQuizFechada">
+              <h3>Nível ${[i+1]}</h3>
+              <img onclick="expandirForm(this)" src="icones/vetorEditar.svg" alt="">
+          </div>
+
+          <div class="expandido escondido">
+          <h3>Nivel ${[i+1]}</h3>
+          <input type="text" placeholder="Título do nível"  name="" id="">
+          <input type="text" placeholder="% de acerto mínima"name="" id="">
+          <input type="text" placeholder="URL da imagem do nível"name="" id="">
+          <input type="text" placeholder="Descrição do nível"name="" id="">
+          </div>
+      </section>
+      `
+  }
+    conteudo.innerHTML+= `<button onclick="renderizarPagina4CriacaoQuizz()">Prosseguir pra criar perguntas</button>`
 }
-function irParaPagina4() {
+    
+
+function renderizarPagina4CriacaoQuizz() {
   let conteudo = document.querySelector('main');
+ 
   conteudo.innerHTML = `<h2>Seu quizz está pronto!</h2>
     <section>
-        <img class="imagemFinal" src="img/Rectangle 34.png" alt="">
+        <img class="imagemFinal" src="${imgNovoQuiz}" alt="">
         <p></p>
     </section>
     <button>Acessar Quizz</button>
-    <p>Voltar pra home</p>`
+    <p onclick="window.location.reload();">Voltar pra home</p>`
 }
 
 // CÓDIGO DO DANILO PARA A PAGINA INICIAL
@@ -145,7 +119,7 @@ const myQuizzes = document.querySelector('.myQuizzes');
 
 function createQuizz() {
   // AQUI É O LINK ENTRE OS SCRIPTS. UMA FUNÇÃO CHAMA A OUTRA
-  renderizarPagina();
+  renderizarPagina1CriacaoQuizz();
 };
 
 function buildMyQuizzes(quizzesArray) {
