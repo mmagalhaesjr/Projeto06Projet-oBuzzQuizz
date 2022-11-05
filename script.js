@@ -13,10 +13,10 @@ let respostaIncorreta2;
 let imagemIncorreta2;
 let respostaIncorreta3;
 let imagemIncorreta3;
-
+let quizData;
 const urlRegex = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
 const colorRegex =  /#(([0-9a-fA-F]{2}){3,4}|([0-9a-fA-F]){3,4})/g;
-let quizData;
+
 
 function renderizarPagina1CriacaoQuizz() {
   let conteudo = document.querySelector('main');
@@ -150,13 +150,13 @@ function validacaoP3(){
   let descricaoNivel = document.querySelector('#descricaoNivel').value
 
   if(tituloDoNivel.length >= 10 && acertoMinimoNivel >= 0 && acertoMinimoNivel <= 100 && acertoMinimoNivel !== '' && (checkUrl(urlNivel)) && descricaoNivel.length >= 30 ){
-    alert('ok')
+    renderizarPagina4CriacaoQuizz();
   }else{
     alert('Preencha os dados corretamente');
   }
 }
 
-function renderizarPagina4CriacaoQuizz() {
+function renderizarPagina4CriacaoQuizz(){
   getLevels();
   let conteudo = document.querySelector('main');
 
