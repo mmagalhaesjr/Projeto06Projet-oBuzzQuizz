@@ -256,6 +256,47 @@ font-weight: 400;
 font-size: 19px;
 left: 12px;
 }
+.titleContainer {
+  /* background-color: green; */
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.titleContainer h3 {
+  /* background-color: rebeccapurple; */
+  position: absolute;
+  bottom: 50%;
+  transform: translateY(50%);
+}
+
+.titleContainer ion-icon {
+  font-size: 40px;
+  margin-left: 20px;
+  color: red;
+  position: relative;
+  left: 110px;
+}
+
+.all-quizzes {
+  width: 100%;
+  /* background-color: blue; */
+}
+
+.myQuizzesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* background-color: rebeccapurple; */
+}
+
+.myQuizzesContainer * {
+  /* margin: 10px; */
+}
+
+main {
+  margin-top: 20px;
+} 
 
 @media (max-width: 1100px) {
 .myQuizzes {
