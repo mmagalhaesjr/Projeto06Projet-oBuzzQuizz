@@ -21,15 +21,13 @@ const colorRegex =  /#(([0-9a-fA-F]{2}){3,4}|([0-9a-fA-F]){3,4})/g;
 function renderizarPagina1CriacaoQuizz() {
   let conteudo = document.querySelector('main');
   conteudo.innerHTML = `  <h2>Comece pelo começo</h2>
-    <div>
         <div class="criandoQuiz">
             <input type="text" placeholder="Título do seu quizz"  name="" id="tituloNovoQuiz" minlength="6">
             <input type="url" placeholder="URL da imagem do seu quizz"name="" id="imgNovoQuiz">
             <input type="number" placeholder="Quantidade de perguntas do quizz"name="" id="qtdPerguntasNovoQuiz">
             <input type="number" placeholder="Quantidade de níveis do quizz"name="" id="qtdNiveisNovoQuiz">
         </div>
-        <button onclick="validacaoP1()">Prosseguir pra criar perguntas</button>    
-    </div>`
+    <button onclick="validacaoP1()">Prosseguir pra criar perguntas</button>`
     }
 
 function validacaoP1(){
@@ -39,20 +37,20 @@ function validacaoP1(){
     qtdNiveisNovoQuiz = document.querySelector('#qtdNiveisNovoQuiz').value;
 
     if ((tituloNovoQuiz.length >= 20) && (tituloNovoQuiz.length <= 65) && (urlRegex.test(imgNovoQuiz) === true) && (qtdPerguntasNovoQuiz >= 3) && (qtdNiveisNovoQuiz >= 2)){
-        renderizarPagina2CriacaoQuizz();
+      getQuizInfo();
+      renderizarPagina2CriacaoQuizz();
     }else{
         alert("Preencha os dados corretamente")
     }
 }
 
 function renderizarPagina2CriacaoQuizz() {
-    getQuizInfo();
     let conteudo = document.querySelector('main');
     conteudo.innerHTML= `<h2>Crie suas perguntas</h2>`;
     
     for(let i = 0; i < qtdPerguntasNovoQuiz; i++ ){
         conteudo.innerHTML +=
-        `<section class="criandoQuiz">
+        `<section class="criandoQuiz pergunta${[i + 1]}">
             <div class="criandoQuizFechada">
                 <h3>Pergunta ${[i + 1]}</h3>
                 <img onclick="expandirForm(this)" src="icones/vetorEditar.svg" alt="">
@@ -91,41 +89,48 @@ function renderizarPagina2CriacaoQuizz() {
 }
 
 function validacaoP2(){
+let perguntasValidadas = 0;
+//-----------------------------------ínicio looping de verificação---------------------------------------------------
+for(let i = 0; i < qtdPerguntasNovoQuiz; i++){
+txtPergunta = document.querySelector(`.pergunta${[i+1]} #txtPergunta`).value;
+corPergunta = document.querySelector(`.pergunta${[i+1]} #corPergunta`).value;
+respostaCorreta = document.querySelector(`.pergunta${[i+1]} #respostaCorreta`).value;
+imagemCorreta = document.querySelector(`.pergunta${[i+1]} #imagemCorreta`).value;
+respostaIncorreta1 = document.querySelector(`.pergunta${[i+1]} #respostaIncorreta1`).value;
+imagemIncorreta1 = document.querySelector(`.pergunta${[i+1]} #imagemIncorreta1`).value;
+respostaIncorreta2 = document.querySelector(`.pergunta${[i+1]} #respostaIncorreta2`).value;
+imagemIncorreta2 = document.querySelector(`.pergunta${[i+1]} #imagemIncorreta2`).value;
+respostaIncorreta3 = document.querySelector(`.pergunta${[i+1]} #respostaIncorreta3`).value;
+imagemIncorreta3 = document.querySelector(`.pergunta${[i+1]} #imagemIncorreta3`).value;
 
-txtPergunta = document.querySelector('#txtPergunta').value;
-corPergunta = document.querySelector('#corPergunta').value;
-respostaCorreta = document.querySelector('#respostaCorreta').value;
-imagemCorreta = document.querySelector('#imagemCorreta').value;
-respostaIncorreta1 = document.querySelector('#respostaIncorreta1').value;
-imagemIncorreta1 = document.querySelector('#imagemIncorreta1').value;
-respostaIncorreta2 = document.querySelector('#respostaIncorreta2').value;
-imagemIncorreta2 = document.querySelector('#imagemIncorreta2').value;
-respostaIncorreta3 = document.querySelector('#respostaIncorreta3').value;
-imagemIncorreta3 = document.querySelector('#imagemIncorreta3').value;
-
-  if ((txtPergunta.length > 2) && (isValidHexaCode(corPergunta)) && (respostaCorreta !== '') && (respostaIncorreta1 !== '') && (checkUrl(imagemCorreta)) && (checkUrl(imagemIncorreta1)) && respostaIncorreta2 === '' && imagemIncorreta2 === '' && respostaIncorreta3 === '' && imagemIncorreta3 === ''){
-    renderizarPagina3CriacaoQuizz();
+  if ((txtPergunta.length > 20) && (isValidHexaCode(corPergunta)) && (respostaCorreta !== '') && (respostaIncorreta1 !== '') && (checkUrl(imagemCorreta)) && (checkUrl(imagemIncorreta1)) && respostaIncorreta2 === '' && imagemIncorreta2 === '' && respostaIncorreta3 === '' && imagemIncorreta3 === ''){
+   perguntasValidadas++;
   }else{
-      if((txtPergunta.length > 2) && (isValidHexaCode(corPergunta)) && (respostaCorreta !== '') && (respostaIncorreta1 !== '') && (checkUrl(imagemCorreta)) && (checkUrl(imagemIncorreta1)) && (respostaIncorreta2 !== '') && (checkUrl(imagemIncorreta2)) && (respostaIncorreta3 === '' && imagemIncorreta3 === '')){
-        renderizarPagina3CriacaoQuizz();
+      if((txtPergunta.length > 20) && (isValidHexaCode(corPergunta)) && (respostaCorreta !== '') && (respostaIncorreta1 !== '') && (checkUrl(imagemCorreta)) && (checkUrl(imagemIncorreta1)) && (respostaIncorreta2 !== '') && (checkUrl(imagemIncorreta2)) && (respostaIncorreta3 === '' && imagemIncorreta3 === '')){
+        perguntasValidadas++;
       }else{
-          if((txtPergunta.length > 2) && (isValidHexaCode(corPergunta)) && (respostaCorreta !== '') && (respostaIncorreta1 !== '') && (checkUrl(imagemCorreta)) && (checkUrl(imagemIncorreta1)) && (respostaIncorreta2 !== '') && (checkUrl(imagemIncorreta2)) && (respostaIncorreta3 !== '') && (checkUrl(imagemIncorreta3))){
-            renderizarPagina3CriacaoQuizz();
-          }else{
-            alert('Preencha os dados corretamente')
+          if((txtPergunta.length > 20) && (isValidHexaCode(corPergunta)) && (respostaCorreta !== '') && (respostaIncorreta1 !== '') && (checkUrl(imagemCorreta)) && (checkUrl(imagemIncorreta1)) && (respostaIncorreta2 !== '') && (checkUrl(imagemIncorreta2)) && (respostaIncorreta3 !== '') && (checkUrl(imagemIncorreta3))){
+            perguntasValidadas++;
           }
       }
     }
+  }
+  //---------------------------------------------------final do looping de verificação-------------------------
+  if(perguntasValidadas == qtdPerguntasNovoQuiz){
+    getQuestions();
+    renderizarPagina3CriacaoQuizz()
+  }else{
+    alert('Preencha os dados corretamente')
+  }
 }
 
 function renderizarPagina3CriacaoQuizz(){
-  getQuestions();
     let conteudo = document.querySelector('main');
     conteudo.innerHTML= '';
     conteudo.innerHTML=`<h2>Agora, decida os níveis</h2>`
     for(let i =0; i < qtdNiveisNovoQuiz;i++ ){
           conteudo.innerHTML+=`
-      <section class="criandoQuiz">
+      <section class="criandoQuiz nivel${[i+1]}">
           <div class="criandoQuizFechada">
               <h3>Nível ${[i + 1]}</h3>
               <img onclick="expandirForm(this)" src="icones/vetorEditar.svg" alt="">
@@ -142,22 +147,32 @@ function renderizarPagina3CriacaoQuizz(){
   }
     conteudo.innerHTML+= `<button onclick="validacaoP3()">Prosseguir pra criar perguntas</button>`
 }
+
 function validacaoP3(){
-
-  let tituloDoNivel = document.querySelector('#tituloDoNivel').value
-  let acertoMinimoNivel = document.querySelector('#acertoMinimoNivel').value 
-  let urlNivel = document.querySelector('#urlNivel').value
-  let descricaoNivel = document.querySelector('#descricaoNivel').value
-
-  if(tituloDoNivel.length >= 10 && acertoMinimoNivel >= 0 && acertoMinimoNivel <= 100 && acertoMinimoNivel !== '' && (checkUrl(urlNivel)) && descricaoNivel.length >= 30 ){
-    renderizarPagina4CriacaoQuizz();
-  }else{
-    alert('Preencha os dados corretamente');
+  let acertoMinimoLista = [];
+  let niveisValidados = 0;
+  //-----------------------------------ínicio looping de verificação-------------------------
+  for(let i = 0; i < qtdNiveisNovoQuiz; i++) {
+    tituloDoNivel = document.querySelector(`.nivel${[i+1]} #tituloDoNivel`).value
+    acertoMinimoNivel = document.querySelector(`.nivel${[i+1]} #acertoMinimoNivel`).value 
+    urlNivel = document.querySelector(`.nivel${[i+1]} #urlNivel`).value
+    descricaoNivel = document.querySelector(`.nivel${[i+1]} #descricaoNivel`).value
+    
+    if(tituloDoNivel.length >= 10 && acertoMinimoNivel >= 0 && acertoMinimoNivel <= 100 && acertoMinimoNivel !== '' && (checkUrl(urlNivel)) && descricaoNivel.length >= 30){
+      niveisValidados += 1;
+      acertoMinimoLista.push(acertoMinimoNivel);
+    }
   }
-}
+  //-----------------------------------final do looping de verificação-------------------------
+  if(acertoMinimoLista.includes("0") && (niveisValidados == qtdNiveisNovoQuiz)){
+    getLevels();
+    renderizarPagina4CriacaoQuizz();
+  } else{
+      alert('Preencha os dados corretamente');
+  }
+}  
 
 function renderizarPagina4CriacaoQuizz(){
-  getLevels();
   let conteudo = document.querySelector('main');
 
   conteudo.innerHTML = `<h2>Seu quizz está pronto!</h2>
