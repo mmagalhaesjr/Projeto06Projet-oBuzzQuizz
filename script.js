@@ -198,7 +198,7 @@ function checkUrl(string) {
 function isValidHexaCode(str) {
 if (str[0] != '#')
     return false;
-if (!(str.length == 4 || str.length == 7))
+if (!(str.length == 7))
     return false;
 for (let i = 1; i < str.length; i++)
     if (!((str[i].charCodeAt(0) <= '0'.charCodeAt(0) && str[i].charCodeAt(0) <= 9)
@@ -278,13 +278,17 @@ function getQuestions() {
       isCorrectAnswer: true,
     };
     answers.push(correctAnswer);
-    Array.from(document.querySelector('.respostasIncorretas').children).map((answer) => {
-      answers.push({
+    Array.from(question.querySelector('.respostasIncorretas').children).map((answer) => {
+      // console.log(answer)
+      if(answer.firstElementChild.value !== ""){
+        answers.push({
         text: answer.firstElementChild.value,
         image: answer.firstElementChild.nextElementSibling.value,
         isCorrectAnswer: false,
-      });
+        });
+      }
     });
+
     questions.push({
       title,
       color,
