@@ -295,6 +295,95 @@ left: 12px;
   /* margin: 10px; */
 }
 
+.hide {
+  display: none;
+}
+
+.quizzesPost {
+  width: 80%;
+  /* background-color: blue; */
+}
+
+.questionContainer {
+  display: flex;
+  flex-direction: column;
+  /* background-color: blue; */
+}
+
+.answerContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.titleQuestion {
+  font-size: 38px;
+  text-align: center;
+}
+
+.white {
+  /* background-image: linear-gradient(180deg, white, red); */
+  position: relative;
+  width: 300px;
+  z-index: 3;
+}
+
+.white::before {
+  content: '';
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.6);
+  /* z-index: 99; */
+}
+
+.answerCont {
+  color: red;
+  font-size: 60px;
+}
+
+.answerCont {
+  /* background-color: purple; */
+  display: flex;
+  position: relative;
+}
+
+.questionContainer img {
+  width: 280px;
+  /* background-color: red; */
+}
+
+.questionContainer img.white::before {
+  content: 'sssssss';
+  position: absolute;
+  width: 100%;
+  background-color: #EC362D;
+  z-index: 3;
+}
+
+.bannerContainer {
+  /* background-color: red; */
+  width: 100%;
+  position: relative;
+}
+
+.bannerTitle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: 700;
+  font-size: 30px;
+} 
+
+.banner {
+  width: 100%;
+  height: 120px;
+}
+
 main {
   margin-top: 20px;
 } 

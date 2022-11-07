@@ -16,7 +16,7 @@ let imagemIncorreta3;
 let quizData;
 const urlRegex = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
 const colorRegex = /#(([0-9a-fA-F]{2}){3,4}|([0-9a-fA-F]){3,4})/g;
-
+let correct = 0;
 
 function renderizarPagina1CriacaoQuizz() {
   let conteudo = document.querySelector('main');
@@ -197,12 +197,12 @@ function checkUrl(string) {
 function isValidHexaCode(str) {
   if (str[0] != '#')
     return false;
-  if (!(str.length == 4 || str.length == 7))
+  if (!(str.length == 7))
     return false;
   for (let i = 1; i < str.length; i++)
     if (!((str[i].charCodeAt(0) <= '0'.charCodeAt(0) && str[i].charCodeAt(0) <= 9)
-      || (str[i].charCodeAt(0) >= 'a'.charCodeAt(0) && str[i].charCodeAt(0) <= 'f'.charCodeAt(0))
-      || (str[i].charCodeAt(0) >= 'A'.charCodeAt(0) || str[i].charCodeAt(0) <= 'F'.charCodeAt(0))))
+      (str[i].charCodeAt(0) >= 'a'.charCodeAt(0) && str[i].charCodeAt(0) <= 'f'.charCodeAt(0))
+      (str[i].charCodeAt(0) >= 'A'.charCodeAt(0) || str[i].charCodeAt(0) <= 'F'.charCodeAt(0))))
       return false;
   return true;
 }
@@ -278,11 +278,13 @@ function getQuestions() {
     };
     answers.push(correctAnswer);
     Array.from(document.querySelector('.respostasIncorretas').children).map((answer) => {
-      answers.push({
-        text: answer.firstElementChild.value,
-        image: answer.firstElementChild.nextElementSibling.value,
-        isCorrectAnswer: false,
-      });
+      if (answer.firstElementChild.value !== '') {
+        answers.push({
+          text: answer.firstElementChild.value,
+          image: answer.firstElementChild.nextElementSibling.value,
+          isCorrectAnswer: false,
+        });
+      }
     });
     questions.push({
       title,
@@ -338,6 +340,107 @@ function buildMyQuizzes(quizzesArray) {
   }
 };
 
+function renderHeader(data) {
+  console.log(data);
+  const main = document.querySelector('main');
+
+  const figure = document.createElement('figure');
+  const banner = document.createElement('img');
+  const title = document.createElement('figcaption');
+
+  figure.classList.add('bannerContainer');
+  banner.classList.add('banner');
+  title.classList.add('bannerTitle');
+
+  banner.src = data.image;
+  title.innerHTML = data.title;
+
+  figure.append(banner);
+  figure.append(title);
+  main.append(figure)
+};
+
+function chooseAnswer(event) {
+  const row = event.target.parentElement.parentElement;
+  const children = Array.from(row.children);
+  children.map((child) => child.classList.add('white'));
+  children.map((child) => {
+    if (child.firstElementChild.getAttribute('correct') === 'true') {
+      child.firstElementChild.nextElementSibling.style.color = 'green';
+    }
+  });
+  event.target.parentElement.classList.remove('white');
+
+  if (event.target.getAttribute('correct') === 'true') correct += 1;
+  console.log(correct);
+};
+
+function renderQuizzes(data) {
+  // console.log(data);
+  const main = document.querySelector('main');
+
+  const quizzesPost = document.createElement('article');
+  quizzesPost.classList.add('quizzesPost');
+  main.append(quizzesPost);
+
+  data.questions.map((question) => {
+    const questionContainer = document.createElement('div');
+    const title = document.createElement('h3');
+    title.innerHTML = question.title;
+    title.style.backgroundColor = question.color;
+
+    const answerContainer = document.createElement('div');
+    answerContainer.classList.add('answerContainer');
+    questionContainer.classList.add('questionContainer');
+    title.classList.add('titleQuestion');
+    questionContainer.append(title);
+
+    question.answers.map((answer) => {
+      const answerCont = document.createElement('div');
+      const image = document.createElement('img');
+      const text = document.createElement('p');
+
+      image.classList.add('.answerImg');
+      answerCont.classList.add('.answerCont');
+      text.classList.add('.answerText');
+
+      text.style.color = 'red';
+
+      image.src = answer.image;
+      text.innerHTML = answer.text;
+      image.setAttribute('correct', answer.isCorrectAnswer);
+
+      image.addEventListener('click', chooseAnswer);
+
+      answerCont.append(image);
+      answerCont.append(text);
+      answerContainer.append(answerCont);
+      questionContainer.append(answerContainer);
+      console.log(answer.image);
+    })
+
+    quizzesPost.append(questionContainer);
+  })
+};
+
+function buildQuiz(data) {
+  console.log(data);
+
+  const main = document.querySelector('main');
+
+  Array.from(main.children).map((child) => child.remove());
+
+  renderHeader(data);
+  renderQuizzes(data);
+};
+
+function getQuizz(event) {
+  const { id } = event.target;
+  const URL = `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`;
+
+  axios.get(URL).then(({ data }) => buildQuiz(data));
+};
+
 function buildQuizzes(quizzesArray, myquiz = false) {
   if (!myquiz) {
     quizzesArray.map(({ id, title, image, questions, levels }) => {
@@ -350,6 +453,8 @@ function buildQuizzes(quizzesArray, myquiz = false) {
       card.classList.add('card');
       cardImage.src = image;
       cardTittle.innerHTML = title;
+
+      card.addEventListener('click', getQuizz);
 
       card.append(imageContainer);
       imageContainer.append(cardImage);
@@ -379,6 +484,8 @@ function buildQuizzes(quizzesArray, myquiz = false) {
       card.classList.add('card');
       cardImage.src = image;
       cardTittle.innerHTML = title;
+
+      card.addEventListener('click', getQuizz);
 
       card.append(imageContainer);
       imageContainer.append(cardImage);
