@@ -362,6 +362,9 @@ function renderHeader(data) {
   main.append(figure)
 };
 
+let questoesRespondidas = 0;
+let niveis;
+
 function chooseAnswer(event) {
   const row = event.target.parentElement.parentElement;
   const children = Array.from(row.children);
@@ -372,18 +375,52 @@ function chooseAnswer(event) {
     }
   });
   event.target.parentElement.classList.remove('white');
-
+  
   if (event.target.getAttribute('correct') === 'true') correct += 1;
   console.log(correct);
+  questoesRespondidas ++;
+  verificarFim();
 };
 
+function verificarFim(){
+  let qtdQuestoes = Array.from(document.querySelector("main article").children);
+  if(questoesRespondidas == qtdQuestoes.length){
+    alert(`Você acertou ${correct} questões`)
+    renderizarFinalizacao();
+  } 
+}
+
+function renderizarFinalizacao(data) {
+  // let conteudo = document.querySelector('main');
+  // for (let i=0; i< niveis.length; i++){
+  //   if ((correct/questoesRespondidas)*100 >= niveis[i].minValue){
+  //     conteudo.innerHTML += `<section class="topo-card-finalizacao">
+  //     <div class="titulo-finalizacao">
+  //       <h3>${88}% de acerto:${vocêépraticamenteumalunodeHogwarts}</h3>
+  //     </div>
+  //   </section>
+    
+  //   <section class="body-finalizacao">
+  //     <div id="image-finalizacao">
+  //       <img src="${assets / dumbledore.png}" alt="imagem card finalização">
+  //     </div>
+  //     <div class="texto-finalizacao">
+  //       <p>${ParabénsPotterhead}</p>
+  //     </div>
+  //   </section>`;
+  //   }
+  //   }
+     }
+ 
 function renderQuizzes(data) {
   // console.log(data);
+ niveis = data.levels;
   const main = document.querySelector('main');
 
   const quizzesPost = document.createElement('article');
   quizzesPost.classList.add('quizzesPost');
   main.append(quizzesPost);
+
 
   data.questions.map((question) => {
     const questionContainer = document.createElement('div');
