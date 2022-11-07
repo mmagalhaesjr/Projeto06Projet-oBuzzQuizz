@@ -55,7 +55,6 @@ function renderizarPagina2CriacaoQuizz() {
                 <h3>Pergunta ${[i + 1]}</h3>
                 <img onclick="expandirForm(this)" src="icones/vetorEditar.svg" alt="">
             </div>
-
             <div class="expandido escondido">
             <h3>Pergunta ${[i + 1]}</h3>
                 <div> 
@@ -410,6 +409,3 @@ function getQuizzes() {
 };
 
 window.addEventListener('load', getQuizzes);
-
-
-
